@@ -1,0 +1,5 @@
+# Full-resolution camera originals stay local; the web-optimized
+# copies in images/photoN.jpg are what the page actually loads.
+images/IMG_*.JPEG
+images/IMG_*.jpg
+__measure.html

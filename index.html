@@ -19,6 +19,13 @@
   .window{position:absolute;top:6%;right:6%;width:26%;height:46%;background:linear-gradient(180deg,#e7b25f 0%, #c97b3f 55%, #8a4b30 100%);border:10px solid var(--walnut);box-shadow:inset 0 0 0 3px #1b140f, 0 10px 30px rgba(0,0,0,0.5);}
   .window::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(90deg, rgba(27,20,15,0.55) 0 3px, transparent 3px 33%),repeating-linear-gradient(0deg, rgba(27,20,15,0.55) 0 3px, transparent 3px 33%);}
   .lightbeam{position:absolute;top:16%;right:14%;width:60%;height:70%;background:linear-gradient(160deg, rgba(233,178,95,0.30), rgba(233,178,95,0) 70%);filter:blur(2px);pointer-events:none;mix-blend-mode:screen;}
+  .frame{position:absolute;margin:0;padding:7px;border-radius:3px;background:linear-gradient(158deg,#6a4830 0%,#3e2a1d 55%,#2a1b12 100%);box-shadow:-8px 13px 22px rgba(0,0,0,0.55), inset 0 0 0 2px rgba(201,154,75,0.28);}
+  .frame::before{content:"";position:absolute;top:-7px;left:50%;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--brass);box-shadow:0 0 5px rgba(201,154,75,0.7);}
+  .frame::after{content:"";position:absolute;inset:0;border-radius:3px;pointer-events:none;background:linear-gradient(146deg, rgba(255,232,190,0.16) 0%, rgba(255,232,190,0.03) 38%, rgba(255,232,190,0) 60%);}
+  .frame img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border:1px solid rgba(0,0,0,0.55);border-radius:1px;filter:sepia(0.34) saturate(0.82) contrast(0.94) brightness(0.86);}
+  .f1{left:18.5%;top:10%;width:14%;transform:rotate(-2deg);}
+  .f2{left:34.5%;top:30%;width:12.5%;transform:rotate(1.6deg);}
+  .f3{left:60%;top:60%;width:13%;transform:rotate(-1.2deg);}
   .dust{position:absolute;border-radius:50%;background:rgba(255,230,180,0.55);pointer-events:none;opacity:0;filter:blur(0.3px);animation:floaty 9s linear infinite;}
   @keyframes floaty{0%{opacity:0;transform:translate(0,0);}10%{opacity:.7;}90%{opacity:.4;}100%{opacity:0;transform:translate(-40px,-160px);}}
   .calendar{position:absolute;top:9%;left:8%;width:9%;aspect-ratio:3/4;background:linear-gradient(180deg,#e9dcbf,#d8c79c);border:3px solid var(--walnut);box-shadow:0 8px 18px rgba(0,0,0,0.45);}
@@ -89,6 +96,10 @@
     .fan{width:24%;top:1%;}
     .sofa{height:10%;}
     .credit{font-size:9px;}
+    .frame{padding:5px;}
+    .f1{left:5%;top:29%;width:26%;}
+    .f2{left:35%;top:31%;width:22%;}
+    .f3{display:none;}
   }
 </style>
 </head>
@@ -115,6 +126,9 @@
     </div>
     <div class="window"></div>
     <div class="lightbeam"></div>
+    <figure class="frame f1"></figure>
+    <figure class="frame f2"></figure>
+    <figure class="frame f3"></figure>
   </div>
 
   <div class="floor"><div class="rug"></div></div>
@@ -165,6 +179,14 @@
   let isOn = false;
   let index = 0;
   let skipTries = 0;
+
+  // Photos hanging on the wall, in order. Add, remove or reorder freely:
+  // a frame with no photo (or a file that fails to load) is dropped from the wall.
+  const PHOTOS = [
+    { src: "images/photo1.jpg", alt: "Family photo at the bowling alley" },
+    { src: "images/photo2.jpg", alt: "Family dinner around the table" },
+    { src: "images/photo3.jpg", alt: "Family gathered at the restaurant" }
+  ];
 
   const TRACKS = [
     { id: "EiUDYzqdz2U", title: "Tere Bina Zindagi Se", artist: "Kishore Kumar & Lata Mangeshkar" },
@@ -303,6 +325,16 @@
   document.getElementById("dial").addEventListener("click", () => nextTrack(true));
   document.getElementById("nextBtn").addEventListener("click", () => nextTrack(true));
   document.getElementById("prevBtn").addEventListener("click", () => prevTrack(true));
+
+  document.querySelectorAll(".frame").forEach((frame, i) => {
+    const photo = PHOTOS[i];
+    if (!photo) { frame.remove(); return; }
+    const img = new Image();
+    img.src = photo.src;
+    img.alt = photo.alt || "";
+    img.addEventListener("error", () => frame.remove());
+    frame.appendChild(img);
+  });
 
   const wall = document.querySelector(".wall");
   for (let i = 0; i < 14; i++) {
