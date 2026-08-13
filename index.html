@@ -65,10 +65,18 @@
   .console .strip .needle{position:absolute;top:0;bottom:0;width:2px;background:var(--teal);box-shadow:0 0 6px var(--teal);left:12%;transition:left .6s cubic-bezier(.6,.1,.2,1);}
   .console .knobs{display:flex;justify-content:space-between;}
   .console .knob{width:26%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%, #7a9a92, var(--teal) 55%, #2e534c 100%);box-shadow:0 3px 6px rgba(0,0,0,0.5);}
-  .sofa{position:absolute;bottom:0;left:0;right:0;height:16%;background:linear-gradient(180deg, #7a2e22 0%, #5c2318 100%);border-top-left-radius:40px;border-top-right-radius:40px;box-shadow:inset 0 8px 14px rgba(0,0,0,0.35), 0 -6px 20px rgba(0,0,0,0.4);}
-  .sofa::before,.sofa::after{content:"";position:absolute;top:-38%;width:20%;height:60%;background:linear-gradient(180deg,#8a382a,#5c2318);border-radius:16px 16px 0 0;}
-  .sofa::before{left:2%;}
-  .sofa::after{right:2%;}
+  .vcr{position:absolute;left:50%;bottom:11%;transform:translateX(-50%);width:40%;aspect-ratio:5/1;display:flex;align-items:center;gap:3.5%;padding:0 3.5%;border-radius:5px;background:linear-gradient(180deg,#50453a 0%,#2c241d 40%,#1c1611 100%);box-shadow:0 16px 30px rgba(0,0,0,0.62), inset 0 1px 0 rgba(201,154,75,0.25);}
+  .vcr::after{content:"";position:absolute;left:5%;right:5%;bottom:-5px;height:5px;border-radius:0 0 4px 4px;background:#120d09;}
+  .slot{position:relative;width:33%;height:46%;border-radius:2px;overflow:hidden;background:linear-gradient(180deg,#0c0906,#191310);box-shadow:inset 0 2px 6px rgba(0,0,0,0.95), 0 1px 0 rgba(201,154,75,0.16);}
+  .tape{position:absolute;left:5%;right:5%;top:2%;height:96%;border-radius:1px;transform:translateY(-118%);background:linear-gradient(180deg,#3d332a,#241d16);box-shadow:0 2px 6px rgba(0,0,0,0.7);}
+  .tape::before{content:"";position:absolute;inset:20% 14%;border-radius:1px;background:linear-gradient(180deg,#c9b98f,#8a7856);opacity:0.5;}
+  .vcr.loading .tape{animation:load-tape 1.5s cubic-bezier(.35,.85,.35,1) 1;}
+  @keyframes load-tape{0%{transform:translateY(-118%);}38%{transform:translateY(0);}58%{transform:translateY(-7%);}100%{transform:translateY(118%);}}
+  .vcr-display{flex:1;height:54%;display:flex;align-items:center;justify-content:space-between;padding:0 5%;border-radius:2px;background:linear-gradient(180deg,#07100f,#040a09);box-shadow:inset 0 0 8px rgba(0,0,0,0.9), inset 0 0 0 1px rgba(79,138,128,0.22);color:#6fd8c4;font-size:clamp(6px,1.02vw,11px);letter-spacing:1.5px;text-shadow:0 0 6px rgba(79,138,128,0.75);}
+  .vcr-btns{display:flex;gap:4px;}
+  .vcr-btns i{width:9px;height:5px;border-radius:1px;background:linear-gradient(180deg,#6c5e4d,#3a3128);box-shadow:0 1px 0 rgba(0,0,0,0.55);}
+  .vcr-led{width:5px;height:5px;border-radius:50%;background:#7a3324;box-shadow:0 0 4px rgba(122,51,36,0.7);transition:background .3s ease, box-shadow .3s ease;}
+  .room.on .vcr-led{background:#e0552f;box-shadow:0 0 9px rgba(224,85,47,0.95);}
   .bar{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(0deg, rgba(16,12,8,0.96), rgba(16,12,8,0.75));padding:14px 18px;display:flex;align-items:center;gap:14px;border-top:1px solid rgba(201,154,75,0.25);backdrop-filter:blur(2px);}
   .track-info{flex:1;min-width:0;color:var(--parchment);}
   .track-info .t{font-family:'Rozha One', serif;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
@@ -101,7 +109,8 @@
     .calendar{width:14%;top:12%;left:5%;}
     .fan{width:21%;left:38%;top:5%;}
     .rug{bottom:30%;width:80%;height:52%;}
-    .sofa{height:10%;}
+    .vcr{width:80%;bottom:13%;gap:4%;padding:0 4%;}
+    .vcr-btns i{width:6px;height:4px;}
   }
   @media (max-width:900px) and (max-height:500px) and (orientation:landscape){
     /* Phone held sideways: the room is very short, so drop the wall clutter and
@@ -111,7 +120,7 @@
     .tv-wrap{left:6%;bottom:auto;top:50%;transform:translateY(-50%);width:min(46%, 80dvh);}
     .bigframe{width:min(26%, 40dvh);top:12%;right:6%;padding:7px;}
     .console{display:none;}
-    .sofa{height:14%;}
+    .vcr{width:34%;left:auto;right:6%;transform:none;bottom:20%;}
     .bar{padding:10px 18px calc(10px + env(safe-area-inset-bottom));}
   }
 </style>
@@ -172,7 +181,15 @@
     <div class="knobs"><div class="knob"></div><div class="knob"></div></div>
   </div>
 
-  <div class="sofa"></div>
+  <div class="vcr" id="vcr">
+    <div class="slot"><div class="tape"></div></div>
+    <div class="vcr-display">
+      <span id="vcrMode">STOP</span>
+      <span id="vcrCount">0:00</span>
+    </div>
+    <div class="vcr-btns"><i></i><i></i><i></i></div>
+    <div class="vcr-led"></div>
+  </div>
 
   <div class="bar">
     <button class="btn" id="prevBtn" aria-label="previous">⟲</button>
@@ -187,8 +204,10 @@
 <script>
   let player = null;
   let isOn = false;
+  let playing = false;
   let index = 0;
   let skipTries = 0;
+  let tapeFor = null;
 
   // The big frame cycles through these, five seconds each. To add more, drop the
   // originals in images/ , run optimize-photos.ps1, then list the new files here.
@@ -222,6 +241,9 @@
   const needle = document.getElementById("needle");
   const fileWarn = document.getElementById("fileWarn");
   const powerBtn = document.getElementById("power");
+  const vcr = document.getElementById("vcr");
+  const vcrMode = document.getElementById("vcrMode");
+  const vcrCount = document.getElementById("vcrCount");
 
   const served = location.protocol === "http:" || location.protocol === "https:";
   if (!served) {
@@ -254,6 +276,23 @@
     try { player.unMute(); player.setVolume(100); } catch (e) {}
   }
 
+  // Guarded by video id so a song only gets one tape, whether the change came
+  // from our own controls or from the player's built-in ones.
+  function feedTape(id){
+    if (id && tapeFor === id) return;
+    if (id) tapeFor = id;
+    vcr.classList.remove("loading");
+    void vcr.offsetWidth;
+    vcr.classList.add("loading");
+    vcrMode.textContent = "LOAD";
+    vcrCount.textContent = "0:00";
+  }
+
+  function clock(seconds){
+    const s = Math.max(0, Math.floor(seconds));
+    return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
+  }
+
   function loadTrack(i, autoplay){
     index = ((i % TRACKS.length) + TRACKS.length) % TRACKS.length;
     const t = TRACKS[index];
@@ -261,6 +300,7 @@
     bumpNeedle();
     flicker();
     if (!player) return;
+    feedTape(t.id);
     if (autoplay) { audible(); player.loadVideoById(t.id); }
     else player.cueVideoById(t.id);
   }
@@ -295,12 +335,14 @@
           setCaption(TRACKS[0].title, TRACKS[0].artist);
         },
         onStateChange: (e) => {
-          if (e.data === YT.PlayerState.PLAYING) {
+          playing = e.data === YT.PlayerState.PLAYING;
+          if (playing) {
             isOn = true;
             skipTries = 0;
             powerBtn.hidden = true;
             room.classList.add("on");
             const data = player.getVideoData && player.getVideoData();
+            if (data && data.video_id) feedTape(data.video_id);
             if (data && data.title) setCaption(data.title, data.author || TRACKS[index].artist);
           }
           if (e.data === YT.PlayerState.ENDED) nextTrack(true);
@@ -373,6 +415,16 @@
       }, 5000);
     }
   }
+
+  vcr.addEventListener("animationend", () => vcr.classList.remove("loading"));
+
+  setInterval(() => {
+    if (vcr.classList.contains("loading")) return;
+    vcrMode.textContent = playing ? "PLAY" : "STOP";
+    if (playing && player && player.getCurrentTime) {
+      vcrCount.textContent = clock(player.getCurrentTime());
+    }
+  }, 500);
 
   const wall = document.querySelector(".wall");
   for (let i = 0; i < 14; i++) {
