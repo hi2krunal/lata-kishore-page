@@ -14,7 +14,7 @@
   *{box-sizing:border-box;}
   html,body{margin:0;height:100%;background:var(--ink);overflow:hidden;font-family:'Mukta',sans-serif;}
   body{display:flex;align-items:center;justify-content:center;}
-  .room{position:relative;width:100vw;height:100vh;max-width:1000px;max-height:750px;background:radial-gradient(ellipse 90% 60% at 50% 0%, #2a2015 0%, #16110c 70%),linear-gradient(180deg, #241a12 0%, #16110c 55%, #100c08 100%);border-radius:6px;overflow:hidden;box-shadow:0 40px 90px rgba(0,0,0,0.65);}
+  .room{position:relative;width:100vw;height:100vh;height:100dvh;max-width:1000px;max-height:750px;background:radial-gradient(ellipse 90% 60% at 50% 0%, #2a2015 0%, #16110c 70%),linear-gradient(180deg, #241a12 0%, #16110c 55%, #100c08 100%);border-radius:6px;overflow:hidden;box-shadow:0 40px 90px rgba(0,0,0,0.65);}
   .wall{position:absolute;inset:0 0 34% 0;background-image:repeating-linear-gradient(90deg, rgba(255,255,255,0.015) 0 2px, transparent 2px 90px),linear-gradient(180deg, #2f2216 0%, #241a12 100%);}
   .lightbeam{position:absolute;top:16%;right:14%;width:60%;height:70%;background:linear-gradient(160deg, rgba(233,178,95,0.22), rgba(233,178,95,0) 70%);filter:blur(2px);pointer-events:none;mix-blend-mode:screen;}
   .frame{position:absolute;margin:0;padding:7px;border-radius:3px;background:linear-gradient(158deg,#6a4830 0%,#3e2a1d 55%,#2a1b12 100%);box-shadow:-8px 13px 22px rgba(0,0,0,0.55), inset 0 0 0 2px rgba(201,154,75,0.28);}
@@ -86,15 +86,31 @@
   .power .lbl{color:var(--parchment);font-size:clamp(8px,2.2vw,11px);letter-spacing:1.4px;text-transform:uppercase;opacity:0.75;}
   .power:active .ring{transform:scale(0.94);}
   @media (max-width:640px){
+    /* Phones get the full screen rather than the capped 1000x750 room, and the
+       TV is centred so the room composes itself on anything from a 667px-tall
+       SE to a 932px-tall Pro Max. Insets keep the notch and the home indicator
+       clear of the header and the playback controls. */
+    .room{max-height:none;border-radius:0;box-shadow:none;}
     .track-info .s{display:none;}
     .console{display:none;}
-    .rug{bottom:32%;width:78%;height:52%;}
-    .tv-wrap{left:50%;transform:translateX(-50%);width:88%;bottom:auto;top:33%;}
-    .calendar{width:15%;top:4%;left:5%;}
-    .bigframe{width:32%;top:7%;right:5%;padding:6px;}
-    .fan{width:24%;top:1%;}
+    .credit{font-size:9px;max-width:50%;top:calc(10px + env(safe-area-inset-top));left:calc(14px + env(safe-area-inset-left));}
+    .bar{padding-bottom:calc(14px + env(safe-area-inset-bottom));}
+    .tv-wrap{left:50%;top:48%;bottom:auto;transform:translate(-50%,-50%);width:min(88%, 62dvh);}
+    .bigframe{width:min(34%, 23dvh);top:calc(7% + env(safe-area-inset-top));right:5%;padding:6px;}
+    .calendar{width:14%;top:12%;left:5%;}
+    .fan{width:22%;left:40%;top:2%;}
+    .rug{bottom:26%;width:80%;height:44%;}
     .sofa{height:10%;}
-    .credit{font-size:9px;}
+  }
+  @media (max-width:900px) and (max-height:500px) and (orientation:landscape){
+    /* Phone held sideways: the room is very short, so drop the wall clutter and
+       let the TV take the height it needs. */
+    .calendar,.fan,.rug{display:none;}
+    .room{max-height:none;border-radius:0;}
+    .tv-wrap{left:6%;bottom:auto;top:50%;transform:translateY(-50%);width:min(42%, 74dvh);}
+    .bigframe{width:min(24%, 62dvh);top:8%;right:5%;}
+    .console{display:none;}
+    .sofa{height:14%;}
   }
 </style>
 </head>
