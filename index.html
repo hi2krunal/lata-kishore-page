@@ -93,13 +93,14 @@
     .room{max-height:none;border-radius:0;box-shadow:none;}
     .track-info .s{display:none;}
     .console{display:none;}
-    .credit{font-size:9px;max-width:50%;top:calc(10px + env(safe-area-inset-top));left:calc(14px + env(safe-area-inset-left));}
+    .credit{font-size:9px;letter-spacing:1.2px;white-space:nowrap;text-shadow:0 1px 4px rgba(16,12,8,0.95);top:calc(10px + env(safe-area-inset-top));left:calc(14px + env(safe-area-inset-left));}
+    .credit .tail{display:none;}
     .bar{padding-bottom:calc(14px + env(safe-area-inset-bottom));}
-    .tv-wrap{left:50%;top:48%;bottom:auto;transform:translate(-50%,-50%);width:min(88%, 62dvh);}
+    .tv-wrap{left:50%;top:50%;bottom:auto;transform:translate(-50%,-50%);width:min(88%, 62dvh);}
     .bigframe{width:min(34%, 23dvh);top:calc(7% + env(safe-area-inset-top));right:5%;padding:6px;}
     .calendar{width:14%;top:12%;left:5%;}
-    .fan{width:22%;left:40%;top:2%;}
-    .rug{bottom:26%;width:80%;height:44%;}
+    .fan{width:21%;left:38%;top:5%;}
+    .rug{bottom:30%;width:80%;height:52%;}
     .sofa{height:10%;}
   }
   @media (max-width:900px) and (max-height:500px) and (orientation:landscape){
@@ -107,17 +108,18 @@
        let the TV take the height it needs. */
     .calendar,.fan,.rug{display:none;}
     .room{max-height:none;border-radius:0;}
-    .tv-wrap{left:6%;bottom:auto;top:50%;transform:translateY(-50%);width:min(42%, 74dvh);}
-    .bigframe{width:min(24%, 62dvh);top:8%;right:5%;}
+    .tv-wrap{left:6%;bottom:auto;top:50%;transform:translateY(-50%);width:min(46%, 80dvh);}
+    .bigframe{width:min(26%, 40dvh);top:12%;right:6%;padding:7px;}
     .console{display:none;}
     .sofa{height:14%;}
+    .bar{padding:10px 18px calc(10px + env(safe-area-inset-bottom));}
   }
 </style>
 </head>
 <body>
 
 <div class="room" id="room">
-  <div class="credit">Doordarshan Shaam · <b>Kishore &amp; Lata</b>, every evening</div>
+  <div class="credit">Doordarshan Shaam · <b>Kishore &amp; Lata</b><span class="tail">, every evening</span></div>
 
   <div class="warn" id="fileWarn">
     This page must be served over <b>http/https</b>. Open it from your GitHub Pages URL, not from a local file.
