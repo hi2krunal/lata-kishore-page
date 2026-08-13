@@ -1,0 +1,275 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Doordarshan Shaam — Kishore &amp; Lata, evening reruns</title>
+<meta property="og:title" content="Doordarshan Shaam">
+<meta property="og:description" content="An 80s living room, a humming TV, and the songs that played every evening.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Mukta:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{ --ink:#1b140f; --walnut:#3e2a1d; --brass:#c99a4b; --rust:#9c4a35; --teal:#4f8a80; --parchment:#ecdfc4; }
+  *{box-sizing:border-box;}
+  html,body{margin:0;height:100%;background:var(--ink);overflow:hidden;font-family:'Mukta',sans-serif;}
+  body{display:flex;align-items:center;justify-content:center;}
+  .room{position:relative;width:100vw;height:100vh;max-width:1000px;max-height:750px;background:radial-gradient(ellipse 90% 60% at 50% 0%, #2a2015 0%, #16110c 70%),linear-gradient(180deg, #241a12 0%, #16110c 55%, #100c08 100%);border-radius:6px;overflow:hidden;box-shadow:0 40px 90px rgba(0,0,0,0.65);}
+  .wall{position:absolute;inset:0 0 34% 0;background-image:repeating-linear-gradient(90deg, rgba(255,255,255,0.015) 0 2px, transparent 2px 90px),linear-gradient(180deg, #2f2216 0%, #241a12 100%);}
+  .window{position:absolute;top:6%;right:6%;width:26%;height:46%;background:linear-gradient(180deg,#e7b25f 0%, #c97b3f 55%, #8a4b30 100%);border:10px solid var(--walnut);box-shadow:inset 0 0 0 3px #1b140f, 0 10px 30px rgba(0,0,0,0.5);}
+  .window::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(90deg, rgba(27,20,15,0.55) 0 3px, transparent 3px 33%),repeating-linear-gradient(0deg, rgba(27,20,15,0.55) 0 3px, transparent 3px 33%);}
+  .lightbeam{position:absolute;top:16%;right:14%;width:60%;height:70%;background:linear-gradient(160deg, rgba(233,178,95,0.30), rgba(233,178,95,0) 70%);filter:blur(2px);pointer-events:none;mix-blend-mode:screen;}
+  .dust{position:absolute;border-radius:50%;background:rgba(255,230,180,0.55);pointer-events:none;opacity:0;filter:blur(0.3px);animation:floaty 9s linear infinite;}
+  @keyframes floaty{0%{opacity:0;transform:translate(0,0);}10%{opacity:.7;}90%{opacity:.4;}100%{opacity:0;transform:translate(-40px,-160px);}}
+  .calendar{position:absolute;top:9%;left:8%;width:9%;aspect-ratio:3/4;background:linear-gradient(180deg,#e9dcbf,#d8c79c);border:3px solid var(--walnut);box-shadow:0 8px 18px rgba(0,0,0,0.45);}
+  .calendar::before{content:"";position:absolute;top:8%;left:8%;right:8%;height:46%;background:radial-gradient(ellipse at 50% 30%, #d98a5a 0%, #b5573c 55%, #7a3324 100%);border-radius:2px;}
+  .calendar::after{content:"";position:absolute;bottom:10%;left:14%;right:14%;height:2px;background:repeating-linear-gradient(90deg,#8a7856 0 3px, transparent 3px 7px);box-shadow:0 8px 0 0 rgba(138,120,86,0.7), 0 16px 0 0 rgba(138,120,86,0.5);}
+  .fan{position:absolute;top:2.5%;left:50%;width:16%;height:16%;transform:translateX(-50%);animation:spin 1.4s linear infinite;transform-origin:50% 15%;opacity:0.9;}
+  .fan svg{width:100%;height:100%;display:block;}
+  @keyframes spin{from{transform:translateX(-50%) rotate(0deg);}to{transform:translateX(-50%) rotate(360deg);}}
+  .floor{position:absolute;left:0;right:0;bottom:0;height:34%;background:linear-gradient(180deg, #241a12 0%, #1a130d 100%);border-top:2px solid rgba(201,154,75,0.15);}
+  .rug{position:absolute;bottom:6%;left:50%;transform:translateX(-50%);width:70%;height:38%;background:repeating-linear-gradient(90deg, #7a2e22 0 14px, #9c4a35 14px 28px);border-radius:6px;box-shadow:0 0 0 6px #5c2318, 0 18px 30px rgba(0,0,0,0.5);opacity:0.9;}
+  .tv-wrap{position:absolute;bottom:24%;left:8%;width:38%;display:flex;flex-direction:column;align-items:center;}
+  .antenna{position:absolute;top:-13%;width:100%;height:15%;pointer-events:none;}
+  .antenna i{position:absolute;bottom:0;width:2px;height:100%;background:var(--brass);transform-origin:bottom center;box-shadow:0 0 6px rgba(201,154,75,0.5);}
+  .antenna i:first-child{left:44%;transform:rotate(-24deg);}
+  .antenna i:last-child{left:54%;transform:rotate(24deg);}
+  .tv{position:relative;width:100%;aspect-ratio:5/4;background:linear-gradient(160deg,#5a3d28,#2f2013 70%);border-radius:14px;box-shadow:0 20px 40px rgba(0,0,0,0.55), inset 0 0 0 3px #1b140f;padding:6% 6% 12%;}
+  .screen{position:relative;width:100%;height:74%;border-radius:8px;background:radial-gradient(ellipse at 50% 45%, #0c1614 0%, #060b0a 75%);overflow:hidden;box-shadow:inset 0 0 30px rgba(0,0,0,0.9), inset 0 0 0 3px #100a06;}
+  .screen .scanlines{position:absolute;inset:0;background:repeating-linear-gradient(180deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 3px);mix-blend-mode:overlay;pointer-events:none;z-index:3;}
+  .screen .glow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%, rgba(79,138,128,0.0) 0%, rgba(79,138,128,0) 70%);transition:background 0.6s ease;}
+  .room.on .screen .glow{background:radial-gradient(ellipse at 50% 45%, rgba(79,138,128,0.55) 0%, rgba(79,138,128,0.05) 72%);}
+  .screen .caption{position:absolute;left:0;right:0;bottom:10%;text-align:center;opacity:0;transform:translateY(6px);transition:opacity .5s ease, transform .5s ease;pointer-events:none;z-index:4;}
+  #ytHost{position:absolute;inset:0;z-index:1;}
+  #ytHost iframe{width:100%;height:100%;border:0;}
+  .room.on .screen .caption{opacity:1;transform:translateY(0);}
+  .caption .title{font-family:'Rozha One', serif;color:var(--parchment);font-size:clamp(10px, 1.9vw, 17px);letter-spacing:0.5px;text-shadow:0 0 10px rgba(236,223,196,0.5);}
+  .caption .meta{color:#a9d6cc;font-size:clamp(7px, 1vw, 10px);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px;opacity:0.85;}
+  .static{position:absolute;inset:0;background:repeating-conic-gradient(#111 0turn, #444 0.001turn, #eee 0.002turn, #111 0.003turn);background-size:3px 3px;opacity:0;pointer-events:none;z-index:3;}
+  .flicker .static{animation:flick 0.35s steps(2) 2;}
+  @keyframes flick{0%{opacity:0;}30%{opacity:0.9;}60%{opacity:0.3;}100%{opacity:0;}}
+  .tv-base{position:absolute;bottom:0;left:10%;right:10%;height:16%;display:flex;align-items:center;justify-content:space-between;padding:0 8%;}
+  .dial{width:16%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%, #e0b361, var(--brass) 55%, #8a6428 100%);box-shadow:0 3px 6px rgba(0,0,0,0.5), inset 0 0 0 2px rgba(27,20,15,0.4);cursor:pointer;position:relative;transition:transform .25s ease;}
+  .dial::after{content:"";position:absolute;top:14%;left:50%;width:2px;height:30%;background:#3a2a12;transform:translateX(-50%);}
+  .dial:hover{filter:brightness(1.1);}
+  .dial:active{transform:scale(0.94);}
+  .speaker-grill{width:46%;height:40%;background-image:repeating-linear-gradient(90deg, #17110a 0 2px, transparent 2px 6px);opacity:0.8;}
+  .console{position:absolute;bottom:22%;right:9%;width:22%;background:linear-gradient(160deg,#4a3220,#2a1c11);border-radius:8px;padding:8% 8% 10%;box-shadow:0 16px 30px rgba(0,0,0,0.5), inset 0 0 0 2px #1b140f;}
+  .console .strip{height:14px;border-radius:3px;background:linear-gradient(90deg,#1a1310,#241a13);box-shadow:inset 0 0 4px rgba(0,0,0,0.8);position:relative;margin-bottom:10%;overflow:hidden;}
+  .console .strip .needle{position:absolute;top:0;bottom:0;width:2px;background:var(--teal);box-shadow:0 0 6px var(--teal);left:12%;transition:left .6s cubic-bezier(.6,.1,.2,1);}
+  .console .knobs{display:flex;justify-content:space-between;}
+  .console .knob{width:26%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%, #7a9a92, var(--teal) 55%, #2e534c 100%);box-shadow:0 3px 6px rgba(0,0,0,0.5);}
+  .sofa{position:absolute;bottom:0;left:0;right:0;height:16%;background:linear-gradient(180deg, #7a2e22 0%, #5c2318 100%);border-top-left-radius:40px;border-top-right-radius:40px;box-shadow:inset 0 8px 14px rgba(0,0,0,0.35), 0 -6px 20px rgba(0,0,0,0.4);}
+  .sofa::before,.sofa::after{content:"";position:absolute;top:-38%;width:20%;height:60%;background:linear-gradient(180deg,#8a382a,#5c2318);border-radius:16px 16px 0 0;}
+  .sofa::before{left:2%;}
+  .sofa::after{right:2%;}
+  .bar{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(0deg, rgba(16,12,8,0.96), rgba(16,12,8,0.75));padding:14px 18px;display:flex;align-items:center;gap:14px;border-top:1px solid rgba(201,154,75,0.25);backdrop-filter:blur(2px);}
+  .track-info{flex:1;min-width:0;color:var(--parchment);}
+  .track-info .t{font-family:'Rozha One', serif;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .track-info .s{font-size:11px;color:#c9b98f;opacity:0.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .btn{background:none;border:1px solid rgba(201,154,75,0.4);color:var(--brass);width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:13px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:background .2s ease;}
+  .btn:hover{background:rgba(201,154,75,0.15);}
+  .credit{position:absolute;top:10px;left:14px;z-index:5;color:rgba(236,223,196,0.55);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;}
+  .credit b{color:var(--brass);font-weight:600;}
+  .warn{display:none;position:absolute;left:50%;top:10%;transform:translateX(-50%);z-index:20;max-width:86%;background:rgba(16,12,8,0.94);color:var(--parchment);border:1px solid rgba(201,154,75,0.45);border-radius:8px;padding:10px 14px;font-size:12px;line-height:1.45;text-align:center;}
+  .warn.show{display:block;}
+  .warn a{color:var(--brass);}
+  @media (max-width:640px){.track-info .s{display:none;}.console{display:none;}}
+</style>
+</head>
+<body>
+
+<div class="room" id="room">
+  <div class="credit">Doordarshan Shaam · <b>Kishore &amp; Lata</b>, every evening</div>
+
+  <div class="warn" id="fileWarn">
+    This page must be served over <b>http/https</b>. Open it from your GitHub Pages URL, not from a local file.
+  </div>
+
+  <div class="wall">
+    <div class="calendar"></div>
+    <div class="fan">
+      <svg viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="6" fill="#c99a4b"/>
+        <g fill="#4a3220">
+          <ellipse cx="50" cy="18" rx="9" ry="30"/>
+          <ellipse cx="50" cy="18" rx="9" ry="30" transform="rotate(120 50 50)"/>
+          <ellipse cx="50" cy="18" rx="9" ry="30" transform="rotate(240 50 50)"/>
+        </g>
+      </svg>
+    </div>
+    <div class="window"></div>
+    <div class="lightbeam"></div>
+  </div>
+
+  <div class="floor"><div class="rug"></div></div>
+
+  <div class="tv-wrap">
+    <div class="antenna"><i></i><i></i></div>
+    <div class="tv">
+      <div class="screen" id="screen">
+        <div class="glow"></div>
+        <div class="scanlines"></div>
+        <div class="static"></div>
+        <div id="ytHost"></div>
+        <div class="caption">
+          <div class="title" id="capTitle">—</div>
+          <div class="meta" id="capMeta">—</div>
+        </div>
+      </div>
+      <div class="tv-base">
+        <div class="speaker-grill"></div>
+        <div class="dial" id="dial" title="turn the dial"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="console">
+    <div class="strip"><div class="needle" id="needle"></div></div>
+    <div class="knobs"><div class="knob"></div><div class="knob"></div></div>
+  </div>
+
+  <div class="sofa"></div>
+
+  <div class="bar">
+    <button class="btn" id="prevBtn" aria-label="previous">⟲</button>
+    <div class="track-info">
+      <div class="t" id="barTitle">Tap the screen to play</div>
+      <div class="s" id="barMeta">Use the dial or the arrows to change songs</div>
+    </div>
+    <button class="btn" id="nextBtn" aria-label="next">⟳</button>
+  </div>
+</div>
+
+<script>
+  let player = null;
+  let isOn = false;
+  let index = 0;
+  let skipTries = 0;
+
+  const TRACKS = [
+    { id: "EiUDYzqdz2U", title: "Tere Bina Zindagi Se", artist: "Kishore Kumar & Lata Mangeshkar" },
+    { id: "dmm5lM9BR8o", title: "Aap Ki Ankhon Mein Kuch", artist: "Kishore Kumar & Lata Mangeshkar" },
+    { id: "6C7R_CUJgHQ", title: "Rimjhim Gire Sawan", artist: "Lata Mangeshkar" },
+    { id: "b6WLXTkei_k", title: "Ek Ajnabee Haseena Se", artist: "Kishore Kumar" },
+    { id: "AMuRRXCuy-4", title: "Pal Pal Dil Ke Paas", artist: "Kishore Kumar" },
+    { id: "YwcRJbaQkFU", title: "O Mere Dil Ke Chain", artist: "Kishore Kumar" },
+    { id: "ij5ox38TyzU", title: "Hum Bewafa Hargiz Na Thay", artist: "Kishore Kumar" },
+    { id: "tHK7f4VpJ48", title: "Tujhse Naraz Nahin Zindagi", artist: "Lata Mangeshkar" }
+  ];
+
+  const room = document.getElementById("room");
+  const capTitle = document.getElementById("capTitle");
+  const capMeta = document.getElementById("capMeta");
+  const barTitle = document.getElementById("barTitle");
+  const barMeta = document.getElementById("barMeta");
+  const needle = document.getElementById("needle");
+  const fileWarn = document.getElementById("fileWarn");
+
+  const served = location.protocol === "http:" || location.protocol === "https:";
+  if (!served) {
+    fileWarn.classList.add("show");
+    barTitle.textContent = "Serve this page over http/https";
+    barMeta.textContent = "YouTube blocks embeds opened directly from disk";
+  }
+
+  let dialPos = 0;
+  function bumpNeedle(){
+    dialPos = (dialPos + 1) % 6;
+    needle.style.left = (8 + (dialPos / 5) * 84) + "%";
+  }
+
+  function flicker(){
+    room.classList.add("flicker");
+    setTimeout(() => room.classList.remove("flicker"), 700);
+  }
+
+  function setCaption(title, meta){
+    capTitle.textContent = title;
+    capMeta.textContent = meta;
+    barTitle.textContent = title;
+    barMeta.textContent = meta;
+  }
+
+  function loadTrack(i, autoplay){
+    index = ((i % TRACKS.length) + TRACKS.length) % TRACKS.length;
+    const t = TRACKS[index];
+    setCaption(t.title, t.artist);
+    bumpNeedle();
+    flicker();
+    if (!player) return;
+    if (autoplay) player.loadVideoById(t.id);
+    else player.cueVideoById(t.id);
+  }
+
+  function nextTrack(autoplay){ loadTrack(index + 1, autoplay); }
+  function prevTrack(autoplay){ loadTrack(index - 1, autoplay); }
+
+  window.onYouTubeIframeAPIReady = function(){
+    if (!served) return;
+
+    player = new YT.Player("ytHost", {
+      height: "100%",
+      width: "100%",
+      videoId: TRACKS[0].id,
+      host: "https://www.youtube-nocookie.com",
+      playerVars: {
+        controls: 1,
+        modestbranding: 1,
+        playsinline: 1,
+        rel: 0,
+        origin: location.origin
+      },
+      events: {
+        onReady: () => {
+          const iframe = player.getIframe && player.getIframe();
+          if (iframe) iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+          loadTrack(0, false);
+        },
+        onStateChange: (e) => {
+          if (e.data === YT.PlayerState.PLAYING) {
+            isOn = true;
+            skipTries = 0;
+            room.classList.add("on");
+            const data = player.getVideoData && player.getVideoData();
+            if (data && data.title) setCaption(data.title, data.author || TRACKS[index].artist);
+          }
+          if (e.data === YT.PlayerState.ENDED) nextTrack(true);
+        },
+        onError: () => {
+          skipTries++;
+          if (skipTries >= TRACKS.length) {
+            setCaption("No playable embeds found", "Try different video IDs");
+            return;
+          }
+          setCaption("Skipping blocked video…", TRACKS[index].artist);
+          setTimeout(() => nextTrack(true), 500);
+        }
+      }
+    });
+  };
+
+  const tag = document.createElement("script");
+  tag.src = "https://www.youtube.com/iframe_api";
+  document.body.appendChild(tag);
+
+  document.getElementById("dial").addEventListener("click", () => nextTrack(isOn));
+  document.getElementById("nextBtn").addEventListener("click", () => nextTrack(isOn));
+  document.getElementById("prevBtn").addEventListener("click", () => prevTrack(isOn));
+
+  const wall = document.querySelector(".wall");
+  for (let i = 0; i < 14; i++) {
+    const d = document.createElement("div");
+    d.className = "dust";
+    const size = 1 + Math.random() * 2.2;
+    d.style.width = size + "px";
+    d.style.height = size + "px";
+    d.style.left = (55 + Math.random() * 35) + "%";
+    d.style.top = (20 + Math.random() * 40) + "%";
+    d.style.animationDelay = (Math.random() * 9) + "s";
+    d.style.animationDuration = (7 + Math.random() * 6) + "s";
+    wall.appendChild(d);
+  }
+</script>
+</body>
+</html>
